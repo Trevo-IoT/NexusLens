@@ -24,6 +24,7 @@
         </div>
         <div class="bottom-line"></div>
         <div class="tab-content" id="tab-content"></div>
+        <div class="status-bar"></div>
     </div>
 </body>
 <script>
@@ -63,7 +64,13 @@ response = requests.post(url, data=json.dumps(payload), headers=headers, hello, 
 
 print(json.dumps(response.json(), sort_keys=True, indent=4))
 print(response.headers['X-Subject-Token'])
-`
+
+print(json.dumps(response.json(), sort_keys=True, indent=4))
+print(response.headers['X-Subject-Token'])
+
+print(json.dumps(response.json(), sort_keys=True, indent=4))
+print(response.headers['X-Subject-Token'])
+print(response.headers['X-Subject-Token'])`
 
 var tab_content = document.getElementById("tab-content");
 var day = 12;

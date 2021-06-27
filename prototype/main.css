@@ -70,9 +70,9 @@ body {
 
 .content {
     background-color: var(--dp12);
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .tab-group {
@@ -99,7 +99,6 @@ body {
 
 .tab-content {
     background-color: #121212;
-    flex-grow: 1;
     flex-direction: column;
     display: flex;
     margin: 0 15px 15px;
@@ -108,6 +107,7 @@ body {
     color: var(--text-color);
     font-family: monospace;
     font-size: 11pt;
+    overflow-y: auto;
 }
 
 .termline-div {
@@ -115,18 +115,18 @@ body {
 }
 
 .termline {
-    width: 800px;
+    width: 100vw;
     margin: 0;
     padding: 0 0 0 10px;
     word-wrap: break-word;
 }
 
 .high_dp {
-    background-color: var(--dp8);
+    background-color: var(--dp4);
 }
 
 .low_dp {
-    background-color: var(--dp2);
+    background-color: var(--dp3);
 }
 
 .termtime {
@@ -144,4 +144,10 @@ body {
     padding: 2px 15px;
     border-radius: 15px;
     font-size: 10pt;
+}
+
+.status-bar {
+    height: 2vh;
+    width: 100%;
+    background-color: red;
 }
