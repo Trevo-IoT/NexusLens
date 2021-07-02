@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
 <body>
     <div class="top-toolbar">
         <button class="toolbar-btn back-icon white-icon"></button>
@@ -17,82 +18,169 @@
     </div>
     <div class="content">
         <div class="tab-group">
-            <div class="tab tab-sel">Terminal</div>
-            <div class="tab">Serie Temporal</div>
-            <div class="tab">Playback</div>
-            <div class="tab">Binário</div>
+            <div class="tab"><p class="unselectable">Terminal</p></div>
+            <div class="tab tab-sel"><p class="unselectable">Gráfico</p><button class="close-icon"></button></div>
+            <div class="tab"><p class="unselectable">Playback</p></div>
+            <div class="tab"><p class="unselectable">Binário</p></div>
         </div>
-        <div class="bottom-line"></div>
-        <div class="tab-content" id="tab-content"></div>
-        <div class="status-bar"></div>
+        <div class="tab-content" id="tab-content">
+            <div class="record-menu">
+                <button class="toolbar-btn white-icon continue-icon" id="continue"></button>
+                <button class="toolbar-btn white-icon stop-icon"></button>
+                <button class="toolbar-btn white-icon backward-icon"></button>
+                <button class="toolbar-btn white-icon forwardr-icon"></button>
+                <button class="toolbar-btn record-icon"></button>
+            </div>
+        </div>
+        <div class="inputbar" id="inputbar">
+            <input type="text">
+            <button class="inputbar-send"></button>
+        </div>
+        <div class="status-bar unselectable">
+            <p>Recording</p>
+        </div>
     </div>
 </body>
 <script>
-var template = `<div class="termline-div"><p class="termtime">{0}</p><p class="termline {3}">{1}</p></div>`
+/*---------- Terminal ---------*/
+// var template = `<div class="termline-div"><p class="termtime unselectable">{0}</p><p class="termline">{1}</p></div>`
 
-var content =
-`matheuswhite@snowball:~$ cat get_token.py
-import requests
-import json
+// var content =
+// `matheuswhite@snowball:~$ cat get_token.py
+// import requests
+// import json
 
-payload = {
-    "auth": {
-        "identity": {
-            "methods": [
-                "password"
-            ],
-            "password": {
-                "user": {
-                    "name": "alfredolima",
-                    "password": "HWH9*rv3VwRa",
-                    "domain": {
-                        "name": "alfredolima"
-                    }
-                }
-            }
+// payload = {
+//     "auth": {
+//         "identity": {
+//             "methods": [
+//                 "password"
+//             ],
+//             "password": {
+//                 "user": {
+//                     "name": "alfredolima",
+//                     "password": "HWH9*rv3VwRa",
+//                     "domain": {
+//                         "name": "alfredolima"
+//                     }
+//                 }
+//             }
+//         },
+//         "scope": {
+//             "domain": {
+//                 "name": "alfredolima"
+//             }
+//         }
+//     }
+// }
+// headers = {'Content-Type': 'application/json;charset=utf8'}
+// url = 'https://iam.ap-southeast-1.myhuaweicloud.com/v3/auth/tokens'
+// response = requests.post(url, data=json.dumps(payload), headers=headers, hello, hello, hello, hello)
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])
+// print(json.dumps(response.json(), sort_keys=True, indent=4))
+// print(response.headers['X-Subject-Token'])`
+
+// var tab_content = document.getElementById("tab-content");
+// var day = 12;
+// var lines = content.split('\n');
+// var sec = 1;
+// lines.forEach(line => {
+//     var it = template.replace('{0}', '13:44:' + String(sec).padStart(2, '0')).replace('{1}', line);
+//     tab_content.innerHTML += it;
+//     sec = (1 + sec) % 60;
+//     if (sec % 10 == 0) {
+//         tab_content.innerHTML += `<div style="display: flex;"><div class="termdata-line"></div><p class="termdate unselectable">${day}/06/2021</p></div>`;
+//         day += 1;
+//     }
+// });
+
+var inputbar = document.getElementById("inputbar");
+inputbar.style.display = 'none';
+/*---------- Terminal ---------*/
+
+/*---------- Gráfico ---------*/
+var tab_content = document.getElementById("tab-content");
+tab_content.innerHTML += '<canvas id="chart"></canvas>';
+
+const max_size = 100;
+var labels = [];
+var dataset = [];
+var dataset2 = [];
+for (let index = 0; index < max_size; index++) {
+    labels[index] = index;
+    dataset[index] = 35 + Math.random() * 2;
+    dataset2[index] = 34 + Math.random() * 2;
+}
+
+var ctx = document.getElementById('chart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [
+        {
+            label: 'Current',
+            data: dataset,
+            fill: false,
+            borderColor: 'rgb(255, 0, 0)',
+            tension: 0.1,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgb(255, 0, 0)',
         },
-        "scope": {
-            "domain": {
-                "name": "alfredolima"
+        {
+            label: 'Voltage',
+            data: dataset2,
+            fill: false,
+            borderColor: 'rgb(0, 0, 255)',
+            tension: 0.1,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgb(0, 0, 255)',
+        }],
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom'
             }
         }
     }
-}
-headers = {'Content-Type': 'application/json;charset=utf8'}
-url = 'https://iam.ap-southeast-1.myhuaweicloud.com/v3/auth/tokens'
-response = requests.post(url, data=json.dumps(payload), headers=headers, hello, hello, hello, hello)
-
-print(json.dumps(response.json(), sort_keys=True, indent=4))
-print(response.headers['X-Subject-Token'])
-
-print(json.dumps(response.json(), sort_keys=True, indent=4))
-print(response.headers['X-Subject-Token'])
-
-print(json.dumps(response.json(), sort_keys=True, indent=4))
-print(response.headers['X-Subject-Token'])
-print(response.headers['X-Subject-Token'])`
-
-var tab_content = document.getElementById("tab-content");
-var day = 12;
-tab_content.innerHTML = `<p class="termdate">${day}/06/2021</p>`;
-var lines = content.split('\n');
-var sec = 1;
-var p_bg = '';
-lines.forEach(line => {
-    if (sec % 2 == 0) {
-        p_bg = 'high_dp';
-    } else {
-        p_bg = 'low_dp';
-    }
-    var it = template.replace('{0}', '13:44:' + String(sec).padStart(2, '0')).replace('{1}', line).replace('{3}', p_bg);
-    tab_content.innerHTML += it;
-    sec = (1 + sec) % 60;
-    if (sec % 10 == 0) {
-        tab_content.innerHTML += `<p class="termdate">${day}/06/2021</p>`;
-        day += 1;
-    }
 });
 
-</script>
+document.getElementById('continue').addEventListener('click', () => {
+    labels.shift();
+    dataset.shift();
+    dataset2.shift();
 
+    labels.push(labels.length);
+    dataset.push(35 + Math.random() * 2);
+    dataset2.push(34 + Math.random() * 2);
+    myChart.update('none');
+});
+/*---------- Gráfico ---------*/
+</script>
 </html>

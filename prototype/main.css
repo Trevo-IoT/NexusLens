@@ -11,7 +11,7 @@
     --dp16: rgb(255, 255, 255, 0.15);
     --dp24: rgb(255, 255, 255, 0.16);
 
-    --primary: darkgoldenrod;
+    --primary: darkorchid;
 }
 
 html,
@@ -25,19 +25,20 @@ body {
 
 .top-toolbar {
     background-color: var(--dp12);
-    padding: 20px 15px;
+    padding: 15px 10px;
     margin: 0;
 }
 
 .toolbar-btn {
-    width: 30px;
-    height: 30px;
-    border: 0;
-    padding: 0 20px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    margin: 2px;
 }
 
 .toolbar-btn:hover {
     filter: invert(90%);
+    cursor: pointer;
 }
 
 .toolbar-btn:active {
@@ -48,24 +49,48 @@ body {
     filter: invert(64%);
 }
 
+.close-icon {
+    background: url('icons8-excluir-30.png') no-repeat center;
+    background-size: 15px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    margin: auto 5px auto auto;
+    filter: invert(70%);
+}
+
+.close-icon:hover {
+    filter: invert(100%);
+    cursor: pointer;
+}
+
+.close-icon:active {
+    filter: invert(70%);
+}
+
 .back-icon {
     background: url('icons8-back-to-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .forward-icon {
     background: url('icons8-next-page-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .new-icon {
     background: url('icons8-add-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .open-icon {
     background: url('icons8-opened-folder-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .save-icon {
     background: url('icons8-save-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .content {
@@ -78,36 +103,54 @@ body {
 .tab-group {
     color: var(--text-color);
     display: flex;
-    margin: 0px 15px;
+    margin: 0;
 }
 
 .tab {
-    padding: 8px 20px;
-    margin: 0 1px;
+    width: 120px;
+    margin: 0 2px 3px;
     background-color: #121212;
+    display: flex;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tab p {
+    padding: 8px 20px 8px 10px;
+    margin: 0;
 }
 
 .tab-sel {
     background-color: var(--primary);
-}
-
-.bottom-line {
-    background-color: var(--primary);
-    height: 3px;
-    margin: 0 15px;
+    cursor: move;
 }
 
 .tab-content {
     background-color: #121212;
     flex-direction: column;
     display: flex;
-    margin: 0 15px 15px;
-    padding: 15px 25px;
+    margin: 0;
+    padding: 5px 10px;
     white-space: pre-wrap;
     color: var(--text-color);
     font-family: monospace;
     font-size: 11pt;
     overflow-y: auto;
+    min-height: 87vh; /*TODO Adicionar isso no jsavascript */
+}
+
+.tab-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+    background-color: #121212;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+    background-color: var(--dp24);
+    border-radius: 20px;
+    border: 3px solid #121212;
 }
 
 .termline-div {
@@ -119,35 +162,121 @@ body {
     margin: 0;
     padding: 0 0 0 10px;
     word-wrap: break-word;
-}
-
-.high_dp {
-    background-color: var(--dp4);
-}
-
-.low_dp {
-    background-color: var(--dp3);
+    font-family: 'Courier New', Courier, monospace
 }
 
 .termtime {
     margin: 0;
+    color: var(--dp24);
     border: none;
     border-radius: 4px;
-    background-color: var(--primary);
     padding: 1px 3px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .termdate {
-    margin: 5px auto 10px;
+    margin: 0 5px;
+    color: var(--dp24);
+    font-size: 11pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.termdata-line {
+    background-color: var(--dp8);
+    margin: 7px 0;
+    height: 2px;
+    width: 100vw;
+}
+
+.inputbar {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+}
+
+.inputbar input {
+    margin: 5px 10px 5px;
+    border-radius: 5px;
+    border-width: 1px;
+    width: 100%;
+    padding-left: 10px;
+    color: var(--text-color);
+    border-color: var(--text-color);
+    background-color: #121212;
+}
+
+.inputbar-send {
+    background: url('icons8-next-page-30.png') no-repeat center;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
     border: none;
-    background-color: var(--primary);
-    padding: 2px 15px;
-    border-radius: 15px;
-    font-size: 10pt;
+    filter: invert(100%);
+    margin: 7px 12px;
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.record-menu {
+    position: absolute;
+    right: 0;
+    border-radius: 5px;
+    background-color: #404040;
+    display: flex;
+    padding: 3px 5px;
+    margin: 5px 30px;
+}
+
+.record-menu button {
+    margin: 0 3px;
+}
+
+.record-icon {
+    background:url('icons8-gravar-30.png') no-repeat center;
+    background-size: 20px;
+    filter: invert(25%) sepia(32%) saturate(7028%) hue-rotate(357deg) brightness(97%) contrast(116%);
+}
+
+.record-icon:active {
+    filter: invert(25%) sepia(32%) saturate(7028%) hue-rotate(357deg) brightness(97%) contrast(116%);
+}
+
+.continue-icon {
+    background: url('icons8-botão-continuar-30.png') no-repeat center;
+    background-size: 20px;
+}
+
+.stop-icon {
+    background: url('icons8-parar-30.png') no-repeat center;
+    background-size: 20px;
+}
+
+.backward-icon {
+    background: url('icons8-retroceder-30.png') no-repeat center;
+    background-size: 20px;
+}
+
+.forwardr-icon {
+    background: url('icons8-avanço-rápido-30.png') no-repeat center;
+    background-size: 20px;
 }
 
 .status-bar {
-    height: 2vh;
+    height: 25px;
     width: 100%;
-    background-color: red;
+    background-color: #ff1100;
+}
+
+.status-bar p {
+    margin: 0 5px;
+    color: var(--text-color);
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
