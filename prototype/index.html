@@ -12,9 +12,11 @@
     <div class="top-toolbar">
         <button class="toolbar-btn back-icon white-icon"></button>
         <button class="toolbar-btn forward-icon white-icon"></button>
+        <div class="toolbar-sep"></div>
         <button class="toolbar-btn new-icon white-icon"></button>
         <button class="toolbar-btn open-icon white-icon"></button>
         <button class="toolbar-btn save-icon white-icon"></button>
+        <div class="toolbar-sep"></div>
     </div>
     <div class="content">
         <div class="tab-group">
@@ -44,6 +46,8 @@
 <script>
 /*---------- Terminal ---------*/
 // var template = `<div class="termline-div"><p class="termtime unselectable">{0}</p><p class="termline">{1}</p></div>`
+
+// var empty_space = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n';
 
 // var content =
 // `matheuswhite@snowball:~$ cat get_token.py
@@ -105,7 +109,8 @@
 
 // var tab_content = document.getElementById("tab-content");
 // var day = 12;
-// var lines = content.split('\n');
+// var lines = [empty_space];
+// lines.push(...content.split('\n'));
 // var sec = 1;
 // lines.forEach(line => {
 //     var it = template.replace('{0}', '13:44:' + String(sec).padStart(2, '0')).replace('{1}', line);
@@ -122,65 +127,159 @@ inputbar.style.display = 'none';
 /*---------- Terminal ---------*/
 
 /*---------- Gráfico ---------*/
-var tab_content = document.getElementById("tab-content");
-tab_content.innerHTML += '<canvas id="chart"></canvas>';
+// var tab_content = document.getElementById("tab-content");
+// tab_content.innerHTML += '<canvas id="chart" style="width:100%;height:100%;"></canvas>';
+// tab_content.innerHTML +=
+// `<div class="graph-ctrl" id="graph-ctrl">
+//     <div style="display: flex;">
+//         <div class="graph-ctrl-axis">
+//             <p style="margin: 10px;">Eixo X</p>
+//             <div style="display: flex; flex-direction: column;">
+//                 <div style="display: flex; margin: 10px;">
+//                     <label>min</label>
+//                     <input type="range">
+//                 </div>
+//                 <div style="display: flex; margin: 10px;">
+//                     <label>max</label>
+//                     <input type="range">
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="graph-ctrl-axis">
+//             <p style="margin: 10px;">Eixo y</p>
+//             <div style="display: flex; flex-direction: column;">
+//                 <div style="display: flex; margin: 10px;">
+//                     <label>min</label>
+//                     <input type="range">
+//                 </div>
+//                 <div style="display: flex; margin: 10px;">
+//                     <label>max</label>
+//                     <input type="range">
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// </div>`;
 
-const max_size = 100;
-var labels = [];
-var dataset = [];
-var dataset2 = [];
-for (let index = 0; index < max_size; index++) {
-    labels[index] = index;
-    dataset[index] = 35 + Math.random() * 2;
-    dataset2[index] = 34 + Math.random() * 2;
+// const max_size = 100;
+// var labels = [];
+// var dataset = [];
+// var dataset2 = [];
+// for (let index = 0; index < max_size; index++) {
+//     labels[index] = index;
+//     dataset[index] = 35 + Math.random() * 2;
+//     dataset2[index] = 34 + Math.random() * 2;
+// }
+
+// var chart = document.getElementById('chart');
+// var ctx = chart.getContext('2d');
+
+// const primary = '#ffc107';
+// const secondary = '#2979ff';
+// var myChart = new Chart(ctx, {
+//     maintainAspectRatio: false,
+//     responsive:true,
+//     type: 'line',
+//     data: {
+//         labels: labels,
+//         datasets: [
+//         {
+//             label: 'Current',
+//             data: dataset,
+//             fill: false,
+//             borderColor: primary,
+//             tension: 0.1,
+//             pointRadius: 0,
+//             pointHoverRadius: 5,
+//             pointHoverBackgroundColor: primary,
+//         },
+//         {
+//             label: 'Voltage',
+//             data: dataset2,
+//             fill: false,
+//             borderColor: secondary,
+//             tension: 0.1,
+//             pointRadius: 0,
+//             pointHoverRadius: 5,
+//             pointHoverBackgroundColor: secondary,
+//         }],
+//     },
+//     options: {
+//         scales: {
+//             x: {
+//                 grid: {
+//                     color: 'rgba(255, 255, 255, 0.38)',
+//                     borderDash: [1, 10],
+//                 },
+//             },
+//             y: {
+//                 grid: {
+//                     color: 'rgba(255, 255, 255, 0.2)',
+//                 },
+//                 min: 30,
+//                 max: 40,
+//             },
+//         },
+//         plugins: {
+//             legend: {
+//                 position: 'bottom'
+//             }
+//         }
+//     }
+// });
+
+// document.getElementById('continue').addEventListener('click', () => {
+//     labels.shift();
+//     dataset.shift();
+//     dataset2.shift();
+
+//     labels.push(labels.length);
+//     dataset.push(35 + Math.random() * 2);
+//     dataset2.push(34 + Math.random() * 2);
+//     myChart.update('none');
+// });
+/*---------- Gráfico ---------*/
+
+/*---------- Hex Editor ---------*/
+var data_size = 500;
+var data = [];
+for (let index = 0; index < data_size; index++) {
+    data.push(Math.floor(Math.random() * 15));
 }
 
-var ctx = document.getElementById('chart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: labels,
-        datasets: [
-        {
-            label: 'Current',
-            data: dataset,
-            fill: false,
-            borderColor: 'rgb(255, 0, 0)',
-            tension: 0.1,
-            pointRadius: 0,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgb(255, 0, 0)',
-        },
-        {
-            label: 'Voltage',
-            data: dataset2,
-            fill: false,
-            borderColor: 'rgb(0, 0, 255)',
-            tension: 0.1,
-            pointRadius: 0,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgb(0, 0, 255)',
-        }],
-    },
-    options: {
-        plugins: {
-            legend: {
-                position: 'bottom'
-            }
-        }
+var tab_content = document.getElementById("tab-content");
+var hex_template =
+`<div class="hex-editor">
+<div class="hex-pos">{0}</div>
+<div class="hex-content">
+    <div class="hex-addr">{1}</div>
+    <div class="hex-data">{2}</div>
+</div>
+</div>`;
+
+var hex_pos_el =`<div class="hex-pos-el">{0}</div>`;
+var hex_pos = '';
+for (let index = 0; index < 16; index += 2) {
+    hex_pos += hex_pos_el.replace('{0}', String(index).padStart(2, '0') + String(index+1).padStart(2, '0'));
+}
+
+var hex_addr_el = `<div class="hex-addr-el">{0}</div>`;
+var hex_addr = '';
+for (let index = 0; index < data_size / 16; index++) {
+    hex_addr += hex_addr_el.replace('{0}', String(index * 16).padStart(8, '0'));
+}
+
+var hex_data_el = `<div class="hex-data-el">{0}</div>`;
+var hex_data_break = `<div class="hex-data-break"></div>`;
+var hex_data = '';
+for (let index = 0; index < data_size; index += 2) {
+    hex_data += hex_data_el.replace('{0}', String(data[index]).padStart(2, '0') + String(data[index+1]).padStart(2, '0'));
+    if (index+1 % 16 == 0) {
+        hex_data += hex_data_break;
     }
-});
+}
 
-document.getElementById('continue').addEventListener('click', () => {
-    labels.shift();
-    dataset.shift();
-    dataset2.shift();
-
-    labels.push(labels.length);
-    dataset.push(35 + Math.random() * 2);
-    dataset2.push(34 + Math.random() * 2);
-    myChart.update('none');
-});
-/*---------- Gráfico ---------*/
+tab_content.innerHTML += hex_template.replace('{0}', hex_pos).replace('{1}', hex_addr).replace('{2}', hex_data);
+/*---------- Hex Editor ---------*/
 </script>
 </html>
